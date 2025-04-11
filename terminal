@@ -1,3 +1,14 @@
-git add frontend/vite.config.ts
-git commit -m "Update base path in Vite config"
-git init
+# Remove the current origin
+git remote remove origin
+
+# Add the correct origin matching your GitHub Pages URL
+git remote add origin https://github.com/lebahye/solana-rps-game.git
+
+# Verify the remote is correct
+git remote -v
+
+# Create and switch to main branch if not already on it
+git checkout -b main
+
+# Push to the correct repository
+git push -u origin main
