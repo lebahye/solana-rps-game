@@ -1,13 +1,9 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import { fileURLToPath } from 'url';
-import { dirname, resolve } from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { resolve } from 'path';
 
 export default defineConfig({
-  base: '/solana-rps-site/',  // Change this to match your GitHub Pages URL
+  base: '/solana-rps-site/',  // This matches your GitHub Pages URL
   plugins: [react()],
   resolve: {
     alias: {
@@ -40,5 +36,6 @@ export default defineConfig({
     host: true
   }
 });
+
 
 
