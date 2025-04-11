@@ -1,5 +1,7 @@
 # Solana Rock Paper Scissors Game
 
+TEST COMMIT - PLEASE IGNORE
+
 A full-stack decentralized game built on the Solana blockchain that allows players to play Rock Paper Scissors with cryptocurrency stakes.
 
 ## Project Overview
@@ -250,3 +252,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Solana Foundation
 - React and TypeScript communities
 - All contributors and users of the game
+
