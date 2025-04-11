@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default defineConfig({
-  base: '/solana-rps-game/',  // This matches your GitHub Pages URL
+  base: '/solana-rps-site/',  // Change this to match your GitHub Pages URL
   plugins: [react()],
   resolve: {
     alias: {
@@ -40,4 +40,5 @@ export default defineConfig({
     host: true
   }
 });
+
 

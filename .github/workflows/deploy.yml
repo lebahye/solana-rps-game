@@ -10,15 +10,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          node-version: '18'
+          bun-version: latest
 
       - name: Install Dependencies
         run: |
           cd frontend
-          npm install
+          bun install
 
       - name: Create .env file
         run: |
@@ -30,10 +30,11 @@ jobs:
       - name: Build
         run: |
           cd frontend
-          npm run build
+          bun run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./frontend/dist
+
