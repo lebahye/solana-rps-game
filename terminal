@@ -1,21 +1,14 @@
-# Make sure you're in your project root directory
-# Remove any existing Git setup
-rm -rf .git
-
-# Initialize new Git repository
+# Initialize git
 git init
 
-# Add all files
+# Add all files except those in .gitignore
 git add .
 
 # Create first commit
-git commit -m "Initial project commit"
+git commit -m "Initial commit"
 
-# Set the main branch
-git branch -M main
-
-# Add your new repository as remote
+# Add the remote (replace 'lebahye' with your GitHub username)
 git remote add origin https://github.com/lebahye/solana-rps-game.git
 
-# Push everything to your new repository
+# Push to main branch
 git push -u origin main
