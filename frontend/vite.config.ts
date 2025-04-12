@@ -5,6 +5,7 @@ import path from 'path';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: '/solana-rps-game/', // Add this line for GitHub Pages deployment
 
   // Resolve path aliases
   resolve: {
@@ -16,8 +17,10 @@ export default defineConfig({
 
   // Define global variables
   define: {
-    'global': 'window',
-    'process.env': {}
+    // Define global variables for Vite
+    'process.env': process.env,
+    global: 'globalThis',
+    'process.browser': true
   },
 
   // Polyfill Node.js globals (Buffer, process)
