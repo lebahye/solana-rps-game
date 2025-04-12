@@ -10,8 +10,14 @@ git add .
 # Make initial commit
 git commit -m "Initial commit"
 
-# Add the GitHub remote
+# Remove existing remote
+git remote remove origin
+
+# Add the correct remote URL
 git remote add origin https://github.com/lebahye/solana-rps-game.git
 
+# Verify the remote URL is correct
+git remote -v
+
 # Push to main branch
-git push -f origin main
+git push -u origin main
