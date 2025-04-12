@@ -1,10 +1,20 @@
-# First, pull any changes (just in case)
-git pull origin main
+# Make sure you're in the project root directory
+cd solana-rps-game
 
-# Make a small change to README.md
-echo "## Test Update - $(date)" >> README.md
+# Initialize git if not already done
+git init
 
-# Commit and push
-git add README.md
-git commit -m "Test commit to verify VS Code GitHub integration"
-git push
+# Add all files
+git add .
+
+# Initial commit
+git commit -m "Initial project commit"
+
+# Set the main branch
+git branch -M main
+
+# Add the remote (your repository)
+git remote add origin https://github.com/lebahye/solana-rps-game.git
+
+# Push to GitHub
+git push -u origin main
