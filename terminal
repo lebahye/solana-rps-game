@@ -10,7 +10,7 @@ git add .
 # Make initial commit
 git commit -m "Initial commit"
 
-# Remove existing remote
+# Remove the incorrect remote
 git remote remove origin
 
 # Add the correct remote URL
