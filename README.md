@@ -6,6 +6,20 @@ A full-stack decentralized game built on the Solana blockchain that allows playe
 
 Solana RPS Game is a decentralized Rock Paper Scissors game built on the Solana blockchain. The game allows players to compete against each other in a transparent, fair environment with cryptographic commitment schemes to ensure fairness.
 
+## Play Online
+
+You can play this game online at: https://lebahye.github.io/solana-rps-game/
+
+## How to Play
+
+1. Connect your Solana wallet (Phantom recommended)
+2. Create a new game or join an existing one
+3. Wager SOL or RPS tokens
+4. Make your selection (Rock, Paper, or Scissors)
+5. Wait for your opponent to make their selection
+6. Reveal your choice
+7. See who wins!
+
 ## Repository Structure
 
 - `/backend` - Solana program (smart contract) written in Rust
