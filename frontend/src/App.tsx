@@ -22,7 +22,8 @@ import GameResultsView from './views/GameResultsView';
 import AutoPlayView from './views/AutoPlayView';
 import WelcomeView from './views/WelcomeView';
 import SecurityView from './views/SecurityView';
-import TestingView from './views/TestingView'; // New import for TestingView
+import TestingView from './views/TestingView'; // Import for TestingView
+import ProfileView from './views/ProfileView'; // Import for ProfileView
 
 // Import wallet adapter CSS
 import '@solana/wallet-adapter-react-ui/styles.css';
@@ -325,6 +326,7 @@ const RPSGame: React.FC = () => {
         <button onClick={() => setCurrentView(GameView.WELCOME)}>Welcome</button>
         <button onClick={() => setCurrentView(GameView.SECURITY)}>Security</button>
         <button onClick={() => setCurrentView(GameView.TESTING)}>Testing</button>
+        <button onClick={() => setCurrentView(GameView.PROFILE)}>Profile</button> {/* New Profile button */}
       </nav>
 
       {/* Main content */}
@@ -341,6 +343,13 @@ const RPSGame: React.FC = () => {
         {currentView === GameView.WELCOME && <WelcomeView {...viewProps} />}
         {currentView === GameView.SECURITY && <SecurityView {...viewProps} />}
         {currentView === GameView.TESTING && <TestingView />}
+        {currentView === GameView.PROFILE && (
+          <ProfileView
+            publicKey={publicKey}
+            connected={connected}
+            onBackToHome={() => setCurrentView(GameView.HOME)}
+          />
+        )}
       </main>
 
       {/* Footer */}

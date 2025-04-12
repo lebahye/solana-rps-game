@@ -17,9 +17,10 @@ export enum GameView {
   COMMIT_CHOICE = 'COMMIT_CHOICE',
   REVEAL_CHOICE = 'REVEAL_CHOICE',
   GAME_RESULTS = 'GAME_RESULTS',
-  AUTO_PLAY = 'AUTO_PLAY', // New view for auto-play mode
-  SECURITY = 'SECURITY', // New view for security information
-  TESTING = 'TESTING', // New view for testing
+  AUTO_PLAY = 'AUTO_PLAY', // Auto-play mode
+  SECURITY = 'SECURITY', // Security information
+  TESTING = 'TESTING', // Testing view
+  PROFILE = 'PROFILE', // New profile view
 }
 
 // Game states as defined in the Solana program
