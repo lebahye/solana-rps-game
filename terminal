@@ -1,14 +1,10 @@
-# Initialize git
-git init
+# First, pull any changes (just in case)
+git pull origin main
 
-# Add all files except those in .gitignore
-git add .
+# Make a small change to README.md
+echo "## Test Update - $(date)" >> README.md
 
-# Create first commit
-git commit -m "Initial commit"
-
-# Add the remote (replace 'lebahye' with your GitHub username)
-git remote add origin https://github.com/lebahye/solana-rps-game.git
-
-# Push to main branch
-git push -u origin main
+# Commit and push
+git add README.md
+git commit -m "Test commit to verify VS Code GitHub integration"
+git push
