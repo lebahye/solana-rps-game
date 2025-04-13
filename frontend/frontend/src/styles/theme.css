@@ -1,0 +1,527 @@
+/* Custom CSS for Solana Rock Paper Scissors Game */
+
+/* Updated color scheme - Dark Theme (Default) */
+:root, .dark-theme {
+  --primary: #9333ea;
+  --primary-hover: #a855f7;
+  --primary-dark: #7e22ce;
+  --secondary: #4f46e5;
+  --secondary-hover: #6366f1;
+  --secondary-dark: #4338ca;
+  --success: #10b981;
+  --success-hover: #34d399;
+  --danger: #ef4444;
+  --danger-hover: #f87171;
+  --background: #111827;
+  --background-light: #1f2937;
+  --background-card: rgba(31, 41, 55, 0.85);
+  --text: #f9fafb;
+  --text-secondary: #e5e7eb;
+  --border: #374151;
+  --border-light: #4b5563;
+  --shadow: rgba(0, 0, 0, 0.3);
+  --shadow-light: rgba(0, 0, 0, 0.1);
+  --shadow-dark: rgba(0, 0, 0, 0.5);
+  --accent: #8b5cf6;
+  --accent-hover: #7c3aed;
+  --accent-light: rgba(139, 92, 246, 0.2);
+  --online: #10b981;
+  --offline: #ef4444;
+  --warning: #f59e0b;
+  --info: #3b82f6;
+}
+
+/* Light Theme */
+.light-theme {
+  --primary: #7c3aed;
+  --primary-hover: #6d28d9;
+  --primary-dark: #5b21b6;
+  --secondary: #4f46e5;
+  --secondary-hover: #4338ca;
+  --secondary-dark: #3730a3;
+  --success: #059669;
+  --success-hover: #047857;
+  --danger: #dc2626;
+  --danger-hover: #b91c1c;
+  --background: #f9fafb;
+  --background-light: #f3f4f6;
+  --background-card: rgba(255, 255, 255, 0.9);
+  --text: #111827;
+  --text-secondary: #4b5563;
+  --border: #d1d5db;
+  --border-light: #e5e7eb;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --shadow-light: rgba(0, 0, 0, 0.05);
+  --shadow-dark: rgba(0, 0, 0, 0.2);
+  --accent: #6d28d9;
+  --accent-hover: #5b21b6;
+  --accent-light: rgba(109, 40, 217, 0.1);
+  --online: #059669;
+  --offline: #dc2626;
+  --warning: #d97706;
+  --info: #2563eb;
+}
+
+/* Application container and layout */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--background);
+  background-image:
+    radial-gradient(circle at 25% 25%, rgba(147, 51, 234, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(79, 70, 229, 0.15) 0%, transparent 50%);
+  color: var(--text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light theme background adjustments */
+.light-theme .app-container {
+  background-image:
+    radial-gradient(circle at 25% 25%, rgba(147, 51, 234, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(79, 70, 229, 0.05) 0%, transparent 50%);
+}
+
+/* Header styling */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: rgba(17, 24, 39, 0.9);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 10px var(--shadow);
+  z-index: 50;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.light-theme .app-header {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo-icon {
+  font-size: 1.75rem;
+  animation: pulse 2s infinite;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Navigation sidebar */
+.app-nav {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 5rem 0 1rem 0;
+  background-color: rgba(17, 24, 39, 0.95);
+  border-right: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+  z-index: 40;
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+  box-shadow: 2px 0 10px var(--shadow);
+}
+
+.light-theme .app-nav {
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+.nav-section {
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+}
+
+.nav-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.app-nav button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+
+.app-nav button:hover {
+  background-color: var(--accent-light);
+  color: var(--text);
+}
+
+.app-nav button.active {
+  background-color: var(--accent-light);
+  color: var(--accent);
+  font-weight: 600;
+  border-left: 3px solid var(--accent);
+}
+
+.nav-icon {
+  margin-right: 0.75rem;
+  font-size: 1.25rem;
+  width: 1.5rem;
+  text-align: center;
+}
+
+/* Main content area */
+.app-main {
+  flex: 1;
+  padding: 2rem 2rem 2rem calc(250px + 2rem); /* Add padding for the sidebar */
+  overflow-y: auto;
+  transition: padding 0.3s ease;
+}
+
+/* Placeholder views */
+.placeholder-view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  background-color: var(--background-light);
+  border-radius: 1rem;
+  color: var(--text-secondary);
+  font-size: 1.5rem;
+  font-weight: 500;
+  border: 2px dashed var(--border);
+}
+
+/* Footer styling */
+.app-footer {
+  background-color: rgba(17, 24, 39, 0.9);
+  padding: 1.5rem 2rem 1.5rem calc(250px + 2rem);
+  border-top: 1px solid var(--border);
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  transition: background-color 0.3s ease, padding 0.3s ease;
+}
+
+.light-theme .app-footer {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer-title {
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--text);
+}
+
+.footer-tagline {
+  color: var(--text-secondary);
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-link {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
+.network-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.status-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--offline);
+}
+
+.status-indicator.online {
+  background-color: var(--online);
+}
+
+.footer-copyright {
+  text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-light);
+  color: var(--text-secondary);
+}
+
+/* Theme Toggle */
+.theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+  color: var(--text);
+}
+
+.theme-toggle:hover {
+  background-color: var(--accent-light);
+}
+
+/* Notification Center */
+.notification-center {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 100;
+}
+
+.notification-toggle {
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px var(--shadow);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.notification-toggle:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+}
+
+.notification-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: var(--danger);
+  color: white;
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.notification-panel {
+  position: absolute;
+  bottom: 4rem;
+  right: 0;
+  width: 350px;
+  max-height: 500px;
+  background-color: var(--background-card);
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px var(--shadow-dark);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.notification-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.notification-header h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.clear-all {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.notification-list {
+  overflow-y: auto;
+  max-height: 400px;
+}
+
+.notification-item {
+  display: flex;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-light);
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.notification-content {
+  flex: 1;
+}
+
+.notification-message {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.875rem;
+}
+
+.notification-link {
+  font-size: 0.75rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.notification-link:hover {
+  text-decoration: underline;
+}
+
+.notification-close {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.notification-success {
+  border-left: 3px solid var(--success);
+}
+
+.notification-error {
+  border-left: 3px solid var(--danger);
+}
+
+.notification-info {
+  border-left: 3px solid var(--info);
+}
+
+/* Mobile menu toggle */
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Enhanced mobile responsiveness */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 0.75rem 1rem;
+  }
+
+  .app-main {
+    padding: 1rem;
+  }
+
+  .app-footer {
+    padding: 1rem;
+  }
+
+  .mobile-menu-toggle {
+    display: block;
+  }
+
+  .app-nav {
+    transform: translateX(-100%);
+    width: 80%;
+    max-width: 300px;
+  }
+
+  .app-nav.open {
+    transform: translateX(0);
+  }
+
+  .header-actions > *:not(.mobile-menu-toggle) {
+    display: none;
+  }
+
+  .header-actions > .mobile-menu-toggle {
+    display: block;
+  }
+
+  .notification-panel {
+    width: 100%;
+    right: 0;
+    left: 0;
+    max-width: 100%;
+    border-radius: 0.75rem 0.75rem 0 0;
+  }
+
+  .notification-center {
+    right: 1rem;
+    bottom: 1rem;
+  }
+}
+
+/* Animations */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

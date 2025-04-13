@@ -4,31 +4,47 @@ import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
+  base: '/solana-rps-game/',
+
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
       'buffer': 'buffer/',
-      '@solana/web3.js': path.resolve(__dirname, 'node_modules/@solana/web3.js'),
     },
   },
+
+  define: {
+    'process.env': {},
+    global: 'globalThis',
+  },
+
   optimizeDeps: {
     esbuildOptions: {
       define: {
         global: 'globalThis',
       },
     },
-    include: ['@solana/web3.js'],
   },
+
   build: {
+    target: 'es2020',
+    sourcemap: true,
     commonjsOptions: {
       transformMixedEsModules: true,
     },
     rollupOptions: {
       output: {
         manualChunks: {
-          'solana': ['@solana/web3.js'],
+          vendor: ['react', 'react-dom'],
+          buffer: ['buffer'],
+          solana: [
+            '@solana/web3.js',
+            '@solana/wallet-adapter-base',
+            '@solana/wallet-adapter-react',
+            '@solana/wallet-adapter-react-ui',
+          ],
         },
-      },
+      }
     },
   },
 });

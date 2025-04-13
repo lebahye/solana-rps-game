@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Network Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+        .box {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Network Connectivity Test</h1>
+    <p class="success">✅ If you can see this page, basic network connectivity is working!</p>
+    
+    <div class="box">
+        <h2>Device Information:</h2>
+        <div id="device-info">
+            <p>Browser: <span id="browser"></span></p>
+            <p>Operating System: <span id="os"></span></p>
+            <p>Screen Size: <span id="screen"></span></p>
+            <p>User Agent: <span id="user-agent"></span></p>
+        </div>
+    </div>
+
+    <div class="box">
+        <h2>Next Steps:</h2>
+        <ol>
+            <li>Try accessing the <a href="/">main application</a></li>
+            <li>If the main app doesn't load, there might be JavaScript or resource loading issues</li>
+            <li>If wallet connection fails, check if your wallet extension is installed and enabled</li>
+        </ol>
+    </div>
+
+    <script>
+        // Simple script to show device info
+        document.getElementById('browser').textContent = navigator.userAgent.includes('Chrome') ? 'Chrome' : 
+                                                        navigator.userAgent.includes('Firefox') ? 'Firefox' : 
+                                                        navigator.userAgent.includes('Safari') ? 'Safari' : 'Other';
+        document.getElementById('os').textContent = navigator.platform;
+        document.getElementById('screen').textContent = `${window.innerWidth}x${window.innerHeight}`;
+        document.getElementById('user-agent').textContent = navigator.userAgent;
+    </script>
+</body>
+</html>
