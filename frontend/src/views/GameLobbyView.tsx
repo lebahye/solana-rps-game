@@ -3,6 +3,7 @@ import { Game, GameState, CurrencyMode } from '../types';
 import { formatCurrencyAmount } from '../services/token-service';
 import { RPSGameClient } from '../rps-client';
 import audioService from '../services/audio-service';
+import { ConnectionStatus } from '../components/ConnectionStatus';
 
 interface GameLobbyViewProps {
   gameClient: RPSGameClient;
@@ -235,6 +236,10 @@ const GameLobbyView: React.FC<GameLobbyViewProps> = ({
                 <span>Waiting for player...</span>
               </div>
             ))}
+        </div>
+
+        <div className="mb-6">
+          <ConnectionStatus />
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">

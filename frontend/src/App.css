@@ -339,3 +339,20 @@
     --bg-color: #121212;
   }
 }
+
+/* Add these to your existing App.css */
+.connection-status {
+  transition: all 0.3s ease;
+}
+
+.connection-status:hover {
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+.connection-status .player-row {
+  transition: background-color 0.2s ease;
+}
+
+.connection-status .player-row:hover {
+  background-color: rgba(75, 85, 99, 0.7);
+}
