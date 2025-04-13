@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Solana RPS Game Test Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      color: #8b5cf6;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      color: #a78bfa;
+      margin-bottom: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      text-align: center;
+      background: #1e293b;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .success {
+      color: #4ade80;
+      font-weight: bold;
+    }
+
+    .error {
+      color: #f87171;
+      font-weight: bold;
+    }
+
+    button {
+      background: #8b5cf6;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      margin: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #7c3aed;
+    }
+
+    .link-row {
+      margin-top: 30px;
+    }
+
+    a {
+      color: #93c5fd;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Solana Rock Paper Scissors Game</h1>
+    <h2>Website Status Check</h2>
+
+    <p>This is a test page to verify the website is working correctly.</p>
+
+    <div id="buffer-status" class="status">Checking Buffer availability...</div>
+
+    <div class="link-row">
+      <a href="/">Home Page</a>
+      <a href="/financial-test">Financial Test Results</a>
+    </div>
+
+    <p class="success">✅ Website is accessible</p>
+  </div>
+
+  <script>
+    // Check if Buffer is available
+    const bufferStatus = document.getElementById('buffer-status');
+    try {
+      if (typeof Buffer !== 'undefined') {
+        const testBuffer = Buffer.from('test');
+        bufferStatus.innerHTML = `<span class="success">✅ Buffer is available and working: ${testBuffer.toString()}</span>`;
+      } else {
+        bufferStatus.innerHTML = `<span class="error">❌ Buffer is NOT available</span>`;
+      }
+    } catch (err) {
+      bufferStatus.innerHTML = `<span class="error">❌ Error checking Buffer: ${err.message}</span>`;
+    }
+  </script>
+</body>
+</html>

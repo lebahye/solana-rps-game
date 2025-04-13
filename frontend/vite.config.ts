@@ -1,26 +1,54 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import { resolve } from 'path';
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
 
+// https://vitejs.dev/config/
 export default defineConfig({
-  base: '/solana-rps-game/',  // Updated to match your repository name
   plugins: [react()],
+  base: '/solana-rps-game/', // Add this line for GitHub Pages deployment
+
+  // Resolve path aliases
   resolve: {
     alias: {
-      '@': resolve(__dirname, './src'),
+      '@': path.resolve(__dirname, './src'),
       'buffer': 'buffer/',
     },
   },
+
+  // Define global variables
   define: {
-    'global': 'window',
-    'process.env': {}
+    // Define global variables for Vite
+    'process.env': process.env,
+    global: 'globalThis',
+    'process.browser': true
   },
+
+  // Polyfill Node.js globals (Buffer, process)
+  optimizeDeps: {
+    esbuildOptions: {
+      define: {
+        global: 'globalThis',
+      },
+    },
+  },
+
+  // Configure build options
   build: {
+    target: 'es2020',
     sourcemap: true,
+    commonjsOptions: {
+      transformMixedEsModules: true,
+    },
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom'],
+          vendor: [
+            'react',
+            'react-dom',
+          ],
+          buffer: [
+            'buffer'
+          ],
           solana: [
             '@solana/web3.js',
             '@solana/wallet-adapter-base',
@@ -31,9 +59,14 @@ export default defineConfig({
       }
     },
   },
+
+  // Server configuration
   server: {
     port: 5173,
-    host: true
-  }
+    host: true,
+    strictPort: true,
+    watch: {
+      usePolling: true
+    }
+  },
 });
-

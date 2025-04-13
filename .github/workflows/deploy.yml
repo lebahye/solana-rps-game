@@ -1,41 +1,60 @@
+# Simple workflow for deploying static content to GitHub Pages
 name: Deploy to GitHub Pages
 
 on:
+  # Runs on pushes targeting the default branch
   push:
-    branches: [ main ]
+    branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
+  # Single deploy job since we're just deploying
   build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          bun-version: latest
+          node-version: '18'
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: |
           cd frontend
-          bun install
-
-      - name: Create .env file
-        run: |
-          cd frontend
-          echo "VITE_SOLANA_NETWORK=devnet" >> .env
-          echo "VITE_RPC_ENDPOINT=https://api.devnet.solana.com" >> .env
-          echo "VITE_PROGRAM_ID=${{ secrets.PROGRAM_ID }}" >> .env
+          npm install
 
       - name: Build
         run: |
           cd frontend
-          bun run build
+          npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: 'frontend/dist'
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./frontend/dist
-
-
+        id: deployment
+        uses: actions/deploy-pages@v2
