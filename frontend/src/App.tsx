@@ -1,5 +1,5 @@
 import type React from 'react';
-import { useState, useEffect, Component, ErrorInfo } from 'react';
+import { useState, useEffect, Component, ErrorInfo, useMemo, useCallback } from 'react';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { ConnectionProvider, WalletProvider, useWallet } from '@solana/wallet-adapter-react';
 import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
@@ -24,6 +24,9 @@ import WelcomeView from './views/WelcomeView';
 import SecurityView from './views/SecurityView';
 import TestingView from './views/TestingView'; // Import for TestingView
 import ProfileView from './views/ProfileView'; // Import for ProfileView
+import { Header } from './components/Header';
+import { ConnectionStatus } from './components/ConnectionStatus';
+import { AutoPlay } from './components/AutoPlay';
 
 // Import wallet adapter CSS
 import '@solana/wallet-adapter-react-ui/styles.css';
