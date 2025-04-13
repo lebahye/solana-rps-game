@@ -3,6 +3,8 @@ import { Game, GameState, CurrencyMode } from '../types';
 import { formatCurrencyAmount } from '../services/token-service';
 import { RPSGameClient } from '../rps-client';
 import audioService from '../services/audio-service';
+import ConnectionStatus from '../components/ConnectionStatus';
+import { abbreviateAddress } from '../utils/utils';
 
 interface GameLobbyViewProps {
   gameClient: RPSGameClient;
@@ -22,6 +24,7 @@ const GameLobbyView: React.FC<GameLobbyViewProps> = ({
   const [loading, setLoading] = useState<boolean>(true);
   const [subscribed, setSubscribed] = useState<boolean>(false);
   const [userPublicKey, setUserPublicKey] = useState<string>('');
+  const [activePlayers, setActivePlayers] = useState<{address: string, status: string}[]>([]);
 
   // Load game data and subscribe to updates
   useEffect(() => {
@@ -57,6 +60,14 @@ const GameLobbyView: React.FC<GameLobbyViewProps> = ({
                 host: hostKey,
                 players: players
               });
+
+              // Update active players for the connection status
+              setActivePlayers(
+                players.map(player => ({
+                  address: player.pubkey,
+                  status: 'in-game'
+                }))
+              );
 
               // Check if the game has started
               if (updatedGame.state === GameState.CommitPhase && !loading) {
@@ -101,8 +112,7 @@ const GameLobbyView: React.FC<GameLobbyViewProps> = ({
 
   // Get shortened version of public key for display
   const shortenPubkey = (pubkey: string) => {
-    if (!pubkey) return '';
-    return `${pubkey.substring(0, 6)}...${pubkey.substring(pubkey.length - 4)}`;
+    return abbreviateAddress(pubkey);
   };
 
   // Format SOL amounts for display
@@ -184,10 +194,18 @@ const GameLobbyView: React.FC<GameLobbyViewProps> = ({
           </div>
         </div>
 
+        {/* Connection Status - New Component */}
         <div className="mb-6">
-          <h3 className="text-lg font-semibold mb-3">
-            Players <span className="text-purple-400">({playerCount}/{gameData.maxPlayers})</span>
-          </h3>
+          <ConnectionStatus maxDisplayed={3} className="mb-4" />
+        </div>
+
+        <div className="mb-6">
+          <div className="flex justify-between items-center mb-3">
+            <h3 className="text-lg font-semibold">
+              Game Players <span className="text-purple-400">({playerCount}/{gameData.maxPlayers})</span>
+            </h3>
+            <span className="badge badge-success">Live Game</span>
+          </div>
 
           {/* Your wallet */}
           <div className="bg-purple-900 bg-opacity-30 p-3 rounded-lg mb-4">
@@ -198,9 +216,12 @@ const GameLobbyView: React.FC<GameLobbyViewProps> = ({
                   {shortenPubkey(userPublicKey)} (You)
                 </span>
               </div>
-              {gameData.host === userPublicKey && (
-                <span className="badge badge-host">Host</span>
-              )}
+              <div className="flex items-center space-x-2">
+                {gameData.host === userPublicKey && (
+                  <span className="badge badge-host">Host</span>
+                )}
+                <span className="badge bg-green-600 text-xs px-2 py-1 rounded">Ready</span>
+              </div>
             </div>
           </div>
 
@@ -217,9 +238,12 @@ const GameLobbyView: React.FC<GameLobbyViewProps> = ({
                     {shortenPubkey(player.pubkey)}
                   </span>
                 </div>
-                {player.pubkey === gameData.host && (
-                  <span className="badge badge-host">Host</span>
-                )}
+                <div className="flex items-center space-x-2">
+                  {player.pubkey === gameData.host && (
+                    <span className="badge badge-host">Host</span>
+                  )}
+                  <span className="badge bg-green-600 text-xs px-2 py-1 rounded">Ready</span>
+                </div>
               </div>
             ))}
 
@@ -235,6 +259,28 @@ const GameLobbyView: React.FC<GameLobbyViewProps> = ({
                 <span>Waiting for player...</span>
               </div>
             ))}
+
+          {/* Game status indicator */}
+          <div className="bg-gray-800 p-3 mt-4 rounded-lg text-center">
+            {readyToStart ? (
+              <div className="flex items-center justify-center">
+                <div className="h-3 w-3 bg-green-500 rounded-full mr-2 animate-pulse"></div>
+                <p className="text-green-400">
+                  {isHost
+                    ? "Ready to start! Click 'Start Game' when all players are ready."
+                    : "Ready to start! Waiting for host to start the game."
+                  }
+                </p>
+              </div>
+            ) : (
+              <div className="flex items-center justify-center">
+                <div className="h-3 w-3 bg-yellow-500 rounded-full mr-2 animate-pulse"></div>
+                <p className="text-yellow-400">
+                  Waiting for {minPlayers - playerCount} more player{minPlayers - playerCount !== 1 ? 's' : ''}...
+                </p>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">

@@ -4,13 +4,15 @@ import { RPSAutoPlayer } from '../autoplay/RPSAutoPlayer';
 import AutoPlayPanel from '../autoplay/AutoPlayPanel';
 import GameAnimation from '../autoplay/GameAnimation';
 import { AutoPlayStats, CurrencyMode, GameHistoryItem, GameOutcome, BettingStrategy } from '../types';
+import ConnectionStatus from '../components/ConnectionStatus';
 
 interface AutoPlayViewProps {
   gameClient: RPSGameClient;
   onBackToHome: () => void;
+  publicKey?: any;
 }
 
-const AutoPlayView: React.FC<AutoPlayViewProps> = ({ gameClient, onBackToHome }) => {
+const AutoPlayView: React.FC<AutoPlayViewProps> = ({ gameClient, onBackToHome, publicKey }) => {
   const [autoPlayer, setAutoPlayer] = useState<RPSAutoPlayer | null>(null);
   const [isAutoPlaying, setIsAutoPlaying] = useState(false);
   const [wagerAmount, setWagerAmount] = useState(0.1);
@@ -34,10 +36,20 @@ const AutoPlayView: React.FC<AutoPlayViewProps> = ({ gameClient, onBackToHome })
     playerChoice?: number;
     opponentChoice?: number;
     result?: GameOutcome;
+    opponentAddress?: string;
+    currentWager?: number;
   }>({
     isPlaying: false
   });
   const [errorMessage, setErrorMessage] = useState("");
+
+  // Mock opponent addresses for simulation
+  const [mockOpponents] = useState<string[]>([
+    '5xNyA9WRzKVBrFGC9h8NxdGVqaNBJH1kVPiXXpEa7P9t',
+    'FbGeZS8LiPCZiFpYAY7fQpBYY5EvUy6xbGvAaATT5emc',
+    'CsQ4YZXBptAf9DUXVgiAENsYfuH2SFSeEmjVXLyB9X9H',
+    'D35a2Lpm5zvVwsFqS3gQWPrJ7YXkFCvQsgmRb9YUQ4y6'
+  ]);
 
   // Initialize the auto player when the game client changes
   useEffect(() => {
@@ -130,20 +142,28 @@ const AutoPlayView: React.FC<AutoPlayViewProps> = ({ gameClient, onBackToHome })
               newStats.currentStreak
             );
 
+            // Randomly select an opponent for visualization
+            const randomOpponent = mockOpponents[Math.floor(Math.random() * mockOpponents.length)];
+
             setStats(newStats);
             // Update animation
             setCurrentGame({
               isPlaying: true,
               playerChoice: lastGame.playerChoice,
               opponentChoice: lastGame.opponentChoices[0], // Just show the first opponent for simplicity
-              result: lastGame.result
+              result: lastGame.result,
+              opponentAddress: randomOpponent,
+              currentWager: currentWager
             });
 
             // Reset animation after a delay
             setTimeout(() => {
               setCurrentGame(prev => ({ ...prev, isPlaying: false }));
               setTimeout(() => {
-                setCurrentGame({ isPlaying: true });
+                setCurrentGame({
+                  isPlaying: true,
+                  opponentAddress: randomOpponent
+                });
               }, 300);
             }, gameSpeed * 0.8); // Animation timing based on game speed
 
@@ -199,11 +219,20 @@ const AutoPlayView: React.FC<AutoPlayViewProps> = ({ gameClient, onBackToHome })
           </div>
         )}
 
+        {/* Connection Status - Shows online players */}
+        <div className="mb-6">
+          <ConnectionStatus maxDisplayed={4} className="mb-4" />
+        </div>
+
         <GameAnimation
           isPlaying={currentGame.isPlaying}
           playerChoice={currentGame.playerChoice}
           opponentChoice={currentGame.opponentChoice}
           result={currentGame.result}
+          wagerAmount={currentGame.currentWager}
+          playerAddress={publicKey?.toBase58() || ''}
+          opponentAddress={currentGame.opponentAddress}
+          isSolToken={selectedCurrency === CurrencyMode.SOL}
         />
 
         <AutoPlayPanel

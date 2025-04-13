@@ -24,6 +24,7 @@ import WelcomeView from './views/WelcomeView';
 import SecurityView from './views/SecurityView';
 import TestingView from './views/TestingView'; // Import for TestingView
 import ProfileView from './views/ProfileView'; // Import for ProfileView
+import ConnectionStatus from './components/ConnectionStatus'; // New import for connection status
 
 // Import wallet adapter CSS
 import '@solana/wallet-adapter-react-ui/styles.css';
@@ -139,6 +140,9 @@ const RPSGame: React.FC = () => {
 
   // New state for responsive UI
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
+
+  // State for connection panel
+  const [showConnectedPlayers, setShowConnectedPlayers] = useState<boolean>(false);
 
   // New state for token management
   const [tokenBalance, setTokenBalance] = useState<TokenBalance>({ sol: 0, rpsToken: 0 });
@@ -294,6 +298,25 @@ const RPSGame: React.FC = () => {
         <div className="header-actions">
           {/* Sound control */}
           <SoundControl />
+
+          {/* Players online indicator */}
+          {connected && (
+            <div className="relative">
+              <button
+                className="flex items-center space-x-1 px-2 py-1 bg-gray-800 bg-opacity-50 rounded hover:bg-opacity-70 transition-colors"
+                onClick={() => setShowConnectedPlayers(!showConnectedPlayers)}
+              >
+                <div className="h-2 w-2 rounded-full bg-green-500"></div>
+                <span className="text-xs text-gray-300">Players Online</span>
+              </button>
+
+              {showConnectedPlayers && (
+                <div className="absolute right-0 mt-1 z-50 w-64">
+                  <ConnectionStatus maxDisplayed={5} />
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Token display when wallet is connected */}
           {connected && publicKey && (
