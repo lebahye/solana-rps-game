@@ -1,23 +1,7 @@
-# Remove any existing git setup (if it exists)
-rm -rf .git
+# In GitHub Desktop:
+1. Click "Fetch"
+2. Then click "Pull origin"
 
-# Initialize new git repository
-git init
-
-# Add your files
-git add .
-
-# Make initial commit
-git commit -m "Initial commit"
-
-# Remove the incorrect remote
-git remote remove origin
-
-# Add the correct remote URL
-git remote add origin https://github.com/lebahye/solana-rps-game.git
-
-# Verify the remote URL is correct
-git remote -v
-
-# Push to main branch
-git push -u origin main
+# Or if using command line:
+git fetch origin
+git pull origin main
