@@ -1,0 +1,8 @@
+/* Add your custom styles here */
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.bg-gradient-to-b {
+  background: linear-gradient(to bottom, #4a1d96, #312e81);
+}

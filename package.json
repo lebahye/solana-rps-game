@@ -7,16 +7,13 @@
     "testing"
   ],
   "scripts": {
-    "clean": "rimraf ./**/node_modules && rimraf ./**/package-lock.json",
-    "setup": "npm install --force",
-    "frontend:dev": "cd frontend && npm run dev",
-    "frontend:build": "cd frontend && npm run build",
+    "clean": "rimraf ./**/node_modules",
+    "setup": "bun install",
+    "frontend:dev": "cd frontend && bun dev",
+    "frontend:build": "cd frontend && bun run build",
     "backend:build": "cd backend/solana-program && cargo build-bpf",
     "backend:deploy": "cd backend/solana-program && solana program deploy target/deploy/rps_game.so",
-    "test": "cd testing && npm test",
-    "test:security": "cd testing && npm run test:security"
-  },
-  "devDependencies": {
-    "rimraf": "^5.0.1"
+    "test": "cd testing && bun test",
+    "test:security": "cd testing && bun run test:security"
   }
 }
