@@ -1,0 +1,20 @@
+modules = ["nodejs-20", "rust-stable", "web"]
+run = "node index.js"
+
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+run = ["sh", "-c", "node index.js"]
+
+[workflows]
+runButton = "Run Frontend Dev"
+
+[[workflows.workflow]]
+name = "Run Frontend Dev"
+author = 39354119
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd frontend && npm install && npm run dev"
