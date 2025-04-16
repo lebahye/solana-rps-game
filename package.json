@@ -4,18 +4,20 @@
   "description": "A full-stack decentralized Rock Paper Scissors game built on the Solana blockchain",
   "private": true,
   "scripts": {
-    "frontend:dev": "cd frontend && bun dev",
-    "frontend:build": "cd frontend && bun build",
+    "clean": "rimraf */node_modules */package-lock.json */bun.lockb",
+    "setup": "npm install && cd frontend && npm install && cd ../testing && npm install",
+    "frontend:dev": "cd frontend && npm run dev",
+    "frontend:build": "cd frontend && npm run build",
     "backend:build": "cd backend/solana-program && cargo build-bpf",
-    "test": "echo \"No tests specified\" && exit 0"
+    "backend:deploy": "cd backend/solana-program && solana program deploy target/deploy/rps_game.so",
+    "test": "cd testing && npm test",
+    "test:security": "cd testing && npm run test:security"
   },
-  "keywords": [
-    "solana",
-    "blockchain",
-    "game",
-    "rock-paper-scissors",
-    "crypto"
+  "workspaces": [
+    "frontend",
+    "testing"
   ],
-  "author": "",
-  "license": "MIT"
+  "devDependencies": {
+    "rimraf": "^5.0.0"
+  }
 }
